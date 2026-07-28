@@ -1,25 +1,61 @@
-# StudyHub Frontend — React Client
+# StudyHub — Peer Notes & Resource Sharing Platform
 
-Library-catalog themed UI for the StudyHub peer notes platform (PUC CSE).
+A full-stack web app for CSE students at Premier University Chittagong (PUC) to share, browse, rate, and download course notes, slides, and question banks — organized by course code and semester.
 
-## Setup
+**Live demo:** [studyhub-client-pink.vercel.app](https://studyhub-client-pink.vercel.app)
+**Backend API:** [studyhub-server-4857.onrender.com](https://studyhub-server-4857.onrender.com)
 
+---
+
+## Features
+
+- 🔐 JWT-based authentication (register/login)
+- 📚 Browse & search resources by course code, semester, and type
+- ⬆️ Upload notes, slides, question banks, and lab sheets (PDF, DOC, PPT, images)
+- ⭐ Rate resources (1–5 stars) and track download counts
+- 🏆 Contribution points awarded on upload — foundation for a leaderboard
+- 🔎 Full-text search across title, course name, and tags
+
+## Tech Stack
+
+**Frontend:** React (Vite), Tailwind CSS, React Router, Axios
+**Backend:** Node.js, Express, MongoDB Atlas, Mongoose
+**Auth:** JWT + bcrypt password hashing
+**File uploads:** Multer
+**Deployment:** Vercel (frontend) · Render (backend) · MongoDB Atlas (database)
+
+## Screenshots
+
+*(Add 2–3 screenshots here — login page, browse catalog, upload form)*
+
+## Local Setup
+
+### Backend
 ```bash
+cd studyhub-server
 npm install
+cp .env.example .env   # fill in MONGO_URI, JWT_SECRET, PORT
 npm run dev
 ```
 
-App runs at `http://localhost:5173`. Make sure the backend server is running at `http://localhost:5000` first.
+### Frontend
+```bash
+cd studyhub-client
+npm install
+echo "VITE_API_URL=http://localhost:5000/api" > .env
+npm run dev
+```
 
-## Pages
+## API Overview
 
-- `/login` — Sign in
-- `/register` — Create account
-- `/` — Browse resources (protected, requires login)
-- `/upload` — Upload a new resource (protected, requires login)
+See [studyhub-server README](https://github.com/BibiHazaratun/studyhub-server) for the full endpoint reference.
 
-## Design
+## Roadmap
 
-Palette: aged paper background, deep ink green text, oxblood/maroon accents (like a library due-date stamp), sage green tags.
-Type: Lora (display), Inter (body), IBM Plex Mono (course codes / call numbers).
-Signature element: resource cards styled as library index cards with a perforated top edge and course code shown as a "call number."
+- AI-generated resource summaries
+- Leaderboard based on contribution points
+- Exam-mode quiz generation from uploaded notes
+
+## Author
+
+Built by Bibi Hazaratun Nesa — CSE, Premier University Chittagong.
