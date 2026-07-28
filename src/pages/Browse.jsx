@@ -33,10 +33,10 @@ export default function Browse() {
   }
 
   const handleDownload = async (resource) => {
-    await api.post(`/resources/${resource._id}/download`)
-    window.open(`${SERVER_ROOT}${resource.fileUrl}`, '_blank')
-  }
-
+  const newTab = window.open('', '_blank')
+  await api.post(`/resources/${resource._id}/download`)
+  newTab.location.href = `${SERVER_ROOT}${resource.fileUrl}`
+}
   const handleRate = async (id, rating) => {
     await api.post(`/resources/${id}/rate`, { rating })
     fetchResources()
