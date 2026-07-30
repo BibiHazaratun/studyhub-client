@@ -31,12 +31,10 @@ export default function Browse() {
     e.preventDefault()
     fetchResources()
   }
-
-  const handleDownload = async (resource) => {
+const handleDownload = async (resource) => {
   await api.post(`/resources/${resource._id}/download`)
   const link = document.createElement('a')
-  link.href = `${SERVER_ROOT}${resource.fileUrl}`
-  link.target = '_blank'
+  link.href = `${SERVER_ROOT}/api/resources/${resource._id}/file`
   link.rel = 'noopener noreferrer'
   document.body.appendChild(link)
   link.click()
