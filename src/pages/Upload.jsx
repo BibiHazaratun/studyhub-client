@@ -58,7 +58,7 @@ export default function Upload() {
         )}
 
         <div>
-          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">Title</label>
+          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">File (PDF, DOC, PPT, image — max 50MB)</label>
           <input required value={form.title} onChange={update('title')}
             className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm focus-ring bg-paper/40"
             placeholder="Midterm Notes — Chapter 4: Compiler Design" />
