@@ -12,7 +12,7 @@ export default function ResourceCard({ resource, onDownload, onRate, onEdit, onD
   const { user } = useAuth()
   const avgRating = resource.averageRating || 0
   const isOwner = user && resource.uploader && user._id === resource.uploader._id
-
+const canManage = isOwner || user?.role === "admin"
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({
     title: resource.title,
