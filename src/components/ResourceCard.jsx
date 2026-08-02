@@ -168,7 +168,7 @@ const canManage = isOwner || user?.role === "admin"
           Download
         </button>
 
-        {isOwner && (
+        {canManage && (
           <div className="flex gap-2 mt-2">
             <button
               onClick={() => setEditing(true)}
