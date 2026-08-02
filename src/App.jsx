@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Browse from './pages/Browse'
 import Upload from './pages/Upload'
+import Admin from './pages/Admin'
 
 export default function App() {
   return (
@@ -27,6 +28,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Upload />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminOnly>
+                <Admin />
               </ProtectedRoute>
             }
           />

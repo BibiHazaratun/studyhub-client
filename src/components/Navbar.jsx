@@ -31,6 +31,9 @@ export default function Navbar() {
             <>
               <Link to="/" className="text-inkSoft hover:text-ink transition-colors">Browse</Link>
               <Link to="/upload" className="text-inkSoft hover:text-ink transition-colors">Upload</Link>
+              {user.role === 'admin' && (
+                <Link to="/admin" className="text-maroon hover:text-maroonDark transition-colors font-medium">Admin</Link>
+              )}
               <div className="flex items-center gap-3 pl-4 border-l border-ink/15">
                 <span className="font-mono text-xs text-inkSoft whitespace-nowrap">
                   {user.name} · Sem {user.semester}
@@ -78,6 +81,9 @@ export default function Navbar() {
               </span>
               <Link to="/" onClick={closeMenu} className="py-2 text-inkSoft hover:text-ink transition-colors">Browse</Link>
               <Link to="/upload" onClick={closeMenu} className="py-2 text-inkSoft hover:text-ink transition-colors">Upload</Link>
+              {user.role === 'admin' && (
+                <Link to="/admin" onClick={closeMenu} className="py-2 text-maroon hover:text-maroonDark transition-colors font-medium">Admin</Link>
+              )}
               <button
                 onClick={handleLogout}
                 className="text-left py-2 text-xs uppercase tracking-wide text-maroon hover:text-maroonDark font-medium"
