@@ -28,6 +28,15 @@ export default function Admin() {
       alert(err.response?.data?.message || 'Action failed')
     }
   }
+  const handleResetPassword = async (id, name) => {
+    if (!window.confirm(`Reset password for ${name}?`)) return
+    try {
+      const { data } = await api.put(`/users/${id}/reset-password`)
+      alert(`New password for ${name}: ${data.newPassword}\n\nShare this with the student securely.`)
+    } catch (err) {
+      alert(err.response?.data?.message || 'Action failed')
+    }
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
@@ -74,19 +83,27 @@ export default function Admin() {
                       <span className="font-mono text-[10px] uppercase tracking-widest text-inkSoft">Active</span>
                     )}
                   </td>
-                  <td className="px-4 py-3">
-                    {u.role !== 'admin' && (
+                 <td className="px-4 py-3">
+                    <div className="flex gap-2">
+                      {u.role !== 'admin' && (
+                        <button
+                          onClick={() => handleToggleBan(u._id)}
+                          className={`text-xs font-medium px-3 py-1.5 rounded-sm border transition-colors focus-ring ${
+                            u.banned
+                              ? 'border-sageDark/40 text-sageDark hover:bg-sage/10'
+                              : 'border-maroon/40 text-maroon hover:bg-maroon/5'
+                          }`}
+                        >
+                          {u.banned ? 'Unban' : 'Ban'}
+                        </button>
+                      )}
                       <button
-                        onClick={() => handleToggleBan(u._id)}
-                        className={`text-xs font-medium px-3 py-1.5 rounded-sm border transition-colors focus-ring ${
-                          u.banned
-                            ? 'border-sageDark/40 text-sageDark hover:bg-sage/10'
-                            : 'border-maroon/40 text-maroon hover:bg-maroon/5'
-                        }`}
+                        onClick={() => handleResetPassword(u._id, u.name)}
+                        className="text-xs font-medium px-3 py-1.5 rounded-sm border border-ink/20 text-ink hover:bg-ink/5 transition-colors focus-ring"
                       >
-                        {u.banned ? 'Unban' : 'Ban'}
+                        Reset PW
                       </button>
-                    )}
+                    </div>
                   </td>
                 </tr>
               ))}
