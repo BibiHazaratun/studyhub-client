@@ -44,6 +44,15 @@ const handleDownload = async (resource) => {
     await api.post(`/resources/${id}/rate`, { rating })
     fetchResources()
   }
+  const handleEdit = async (id, formData) => {
+    await api.put(`/resources/${id}`, formData)
+    fetchResources()
+  }
+
+  const handleDelete = async (id) => {
+    await api.delete(`/resources/${id}`)
+    fetchResources()
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
@@ -88,7 +97,14 @@ const handleDownload = async (resource) => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {resources.map((r) => (
-            <ResourceCard key={r._id} resource={r} onDownload={handleDownload} onRate={handleRate} />
+            <ResourceCard
+  key={r._id}
+  resource={r}
+  onDownload={handleDownload}
+  onRate={handleRate}
+  onEdit={handleEdit}
+  onDelete={handleDelete}
+/>
           ))}
         </div>
       )}
