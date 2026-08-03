@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -31,9 +32,9 @@ export default function Navbar() {
             <>
               <Link to="/" className="text-inkSoft hover:text-ink transition-colors">Browse</Link>
               <Link to="/upload" className="text-inkSoft hover:text-ink transition-colors">Upload</Link>
-              {user.role === 'admin' && (
-                <Link to="/admin" className="text-maroon hover:text-maroonDark transition-colors font-medium">Admin</Link>
-              )}
+             {(user.role === 'admin' || user.role === 'moderator') && (
+  <Link to="/admin" className="text-maroon hover:text-maroonDark transition-colors font-medium">Admin</Link>
+)}
               <div className="flex items-center gap-3 pl-4 border-l border-ink/15">
                 <span className="font-mono text-xs text-inkSoft whitespace-nowrap">
                   {user.name} · Sem {user.semester}
