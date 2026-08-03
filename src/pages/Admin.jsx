@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import api from '../api/axios'
+import { useAuth } from '../context/AuthContext'
 
 export default function Admin() {
+  const { user: currentUser } = useAuth()
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -28,6 +30,7 @@ export default function Admin() {
       alert(err.response?.data?.message || 'Action failed')
     }
   }
+
   const handleResetPassword = async (id, name) => {
     if (!window.confirm(`Reset password for ${name}?`)) return
     try {
@@ -38,8 +41,20 @@ export default function Admin() {
     }
   }
 
+  const handleRoleChange = async (id, newRole, name) => {
+    if (!window.confirm(`Change ${name}'s role to ${newRole}?`)) return
+    try {
+      await api.put(`/users/${id}/role`, { role: newRole })
+      fetchUsers()
+    } catch (err) {
+      alert(err.response?.data?.message || 'Action failed')
+    }
+  }
+
+  const isMainAdmin = currentUser?.role === 'admin'
+
   return (
-    <div className="max-w-4xl mx-auto px-6 py-10">
+    <div className="max-w-5xl mx-auto px-6 py-10">
       <div className="mb-8">
         <span className="font-mono text-[10px] uppercase tracking-widest text-maroon">Admin</span>
         <h1 className="font-display text-3xl font-semibold text-ink mt-1">User management</h1>
@@ -83,9 +98,9 @@ export default function Admin() {
                       <span className="font-mono text-[10px] uppercase tracking-widest text-inkSoft">Active</span>
                     )}
                   </td>
-                 <td className="px-4 py-3">
-                    <div className="flex gap-2">
-                      {u.role !== 'admin' && (
+                  <td className="px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {u.role === 'student' && (
                         <button
                           onClick={() => handleToggleBan(u._id)}
                           className={`text-xs font-medium px-3 py-1.5 rounded-sm border transition-colors focus-ring ${
@@ -97,12 +112,25 @@ export default function Admin() {
                           {u.banned ? 'Unban' : 'Ban'}
                         </button>
                       )}
-                      <button
-                        onClick={() => handleResetPassword(u._id, u.name)}
-                        className="text-xs font-medium px-3 py-1.5 rounded-sm border border-ink/20 text-ink hover:bg-ink/5 transition-colors focus-ring"
-                      >
-                        Reset PW
-                      </button>
+                      {u.role === 'student' && (
+                        <button
+                          onClick={() => handleResetPassword(u._id, u.name)}
+                          className="text-xs font-medium px-3 py-1.5 rounded-sm border border-ink/20 text-ink hover:bg-ink/5 transition-colors focus-ring"
+                        >
+                          Reset PW
+                        </button>
+                      )}
+                      {isMainAdmin && u._id !== currentUser._id && (
+                        <select
+                          value={u.role}
+                          onChange={(e) => handleRoleChange(u._id, e.target.value, u.name)}
+                          className="text-xs border border-ink/20 rounded-sm px-2 py-1.5 bg-white focus-ring"
+                        >
+                          <option value="student">Student</option>
+                          <option value="moderator">Moderator</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      )}
                     </div>
                   </td>
                 </tr>
