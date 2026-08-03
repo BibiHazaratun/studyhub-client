@@ -100,19 +100,7 @@ export default function Admin() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-2">
-                      {u.role === 'student' && (
-                        <button
-                          onClick={() => handleToggleBan(u._id)}
-                          className={`text-xs font-medium px-3 py-1.5 rounded-sm border transition-colors focus-ring ${
-                            u.banned
-                              ? 'border-sageDark/40 text-sageDark hover:bg-sage/10'
-                              : 'border-maroon/40 text-maroon hover:bg-maroon/5'
-                          }`}
-                        >
-                          {u.banned ? 'Unban' : 'Ban'}
-                        </button>
-                      )}
-                     {(u.role === 'student' || (isMainAdmin && u.role !== 'admin')) && (
+                      {(u.role === 'student' || (isMainAdmin && u.role !== 'admin')) && (
                         <button
                           onClick={() => handleToggleBan(u._id)}
                           className={`text-xs font-medium px-3 py-1.5 rounded-sm border transition-colors focus-ring ${
