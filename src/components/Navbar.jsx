@@ -32,8 +32,10 @@ export default function Navbar() {
             <>
               <Link to="/" className="text-inkSoft hover:text-ink transition-colors">Browse</Link>
               <Link to="/upload" className="text-inkSoft hover:text-ink transition-colors">Upload</Link>
-             {(user.role === 'admin' || user.role === 'moderator') && (
-  <Link to="/admin" className="text-maroon hover:text-maroonDark transition-colors font-medium">Admin</Link>
+            {(user.role === 'admin' || user.role === 'moderator') && (
+  <Link to="/admin" className="text-maroon hover:text-maroonDark transition-colors font-medium">
+    {user.role === 'admin' ? 'Admin' : 'Moderator'}
+  </Link>
 )}
               <div className="flex items-center gap-3 pl-4 border-l border-ink/15">
                 <span className="font-mono text-xs text-inkSoft whitespace-nowrap">
