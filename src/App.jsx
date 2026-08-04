@@ -9,7 +9,7 @@ import Admin from './pages/Admin'
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-bg">
       <Navbar />
       <main className="flex-1">
         <Routes>
@@ -41,8 +41,9 @@ export default function App() {
           />
         </Routes>
       </main>
-      <footer className="border-t border-ink/10 py-6 text-center">
-        <p className="font-mono text-[10px] uppercase tracking-widest text-inkSoft/60">
+      <footer className="footer-wrap border-t border-borderSub bg-[rgba(0,14,22,0.99)] py-8 flex flex-col items-center gap-3">
+        <div className="w-80 max-w-[80%] h-px bg-gradient-to-r from-transparent via-[rgba(22,163,74,0.45)] to-transparent" />
+        <p className="font-body text-[10px] uppercase tracking-widest text-textMuted">
           StudyHub · Built for Premier University Chattogram, CSE
         </p>
       </footer>

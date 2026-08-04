@@ -40,80 +40,89 @@ export default function Upload() {
   }
 
   return (
-    <div className="max-w-xl mx-auto px-6 py-10">
-      <div className="mb-8">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-maroon">Contribute</span>
-        <h1 className="font-display text-3xl font-semibold text-ink mt-1">Add to the catalog</h1>
-        <p className="text-inkSoft text-sm mt-1">Share notes, slides, or question banks with your batch.</p>
-      </div>
+    <div className="bg-hero bg-pitch-grid min-h-screen relative overflow-hidden">
+      <div className="orb orb-gold w-80 h-80 top-10 -right-16" />
 
-      <form onSubmit={handleSubmit} className="bg-white border border-ink/15 rounded-sm shadow-[3px_3px_0_rgba(31,42,36,0.12)] p-6 space-y-4">
-        {error && (
-          <div className="bg-maroon/10 border border-maroon/30 text-maroonDark text-sm rounded-sm px-3 py-2">{error}</div>
-        )}
-        {success && (
-          <div className="bg-sage/20 border border-sageDark/30 text-inkSoft text-sm rounded-sm px-3 py-2">
-            Uploaded! Redirecting to the catalog…
-          </div>
-        )}
-
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">File (PDF, DOC, PPT, image — max 50MB)</label>
-          <input required value={form.title} onChange={update('title')}
-            className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm focus-ring bg-paper/40"
-            placeholder="Midterm Notes — Chapter 4: Compiler Design" />
+      <div className="max-w-xl mx-auto px-6 py-10 relative">
+        <div className="mb-8 animate-fadeUp">
+          <span className="font-body text-[10px] uppercase tracking-widest text-green-hi">Contribute</span>
+          <h1 className="font-display text-4xl text-white mt-1">Add to the archive</h1>
+          <p className="text-textSec text-sm mt-2 font-body">Share notes, slides, or question banks with your batch.</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <form onSubmit={handleSubmit} className="card p-6 space-y-4 animate-cardIn">
+          <div className="card-top-line" style={{ opacity: 1 }} />
+
+          {error && (
+            <div className="bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] text-red-400 text-sm rounded-sm px-3 py-2 font-body">
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="bg-[rgba(22,163,74,0.12)] border border-[rgba(22,163,74,0.35)] text-green-hi text-sm rounded-sm px-3 py-2 font-body">
+              Uploaded! Redirecting to the catalog…
+            </div>
+          )}
+
           <div>
-            <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">Course code</label>
-            <input required value={form.courseCode} onChange={update('courseCode')}
-              className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm font-mono focus-ring bg-paper/40" placeholder="CSE-321" />
+            <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">Title</label>
+            <input required value={form.title} onChange={update('title')}
+              className="input w-full px-3 py-2.5 text-sm"
+              placeholder="Midterm Notes — Chapter 4: Compiler Design" />
           </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">Course code</label>
+              <input required value={form.courseCode} onChange={update('courseCode')}
+                className="input w-full px-3 py-2.5 text-sm font-mono" placeholder="CSE-321" />
+            </div>
+            <div>
+              <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">Semester</label>
+              <select required value={form.semester} onChange={update('semester')}
+                className="input w-full px-3 py-2.5 text-sm">
+                <option value="">Select</option>
+                {[1,2,3,4,5,6,7,8].map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+          </div>
+
           <div>
-            <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">Semester</label>
-            <select required value={form.semester} onChange={update('semester')}
-              className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm focus-ring bg-paper/40">
-              <option value="">Select</option>
-              {[1,2,3,4,5,6,7,8].map((s) => <option key={s} value={s}>{s}</option>)}
+            <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">Course name</label>
+            <input required value={form.courseName} onChange={update('courseName')}
+              className="input w-full px-3 py-2.5 text-sm" placeholder="Compiler Design" />
+          </div>
+
+          <div>
+            <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">Resource type</label>
+            <select value={form.type} onChange={update('type')}
+              className="input w-full px-3 py-2.5 text-sm">
+              <option value="notes">Notes</option>
+              <option value="slides">Slides</option>
+              <option value="question">Question Bank</option>
+              <option value="lab">Lab Sheet</option>
             </select>
           </div>
-        </div>
 
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">Course name</label>
-          <input required value={form.courseName} onChange={update('courseName')}
-            className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm focus-ring bg-paper/40" placeholder="Compiler Design" />
-        </div>
+          <div>
+            <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">Tags (comma separated)</label>
+            <input value={form.tags} onChange={update('tags')}
+              className="input w-full px-3 py-2.5 text-sm" placeholder="midterm, chapter4, important" />
+          </div>
 
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">Resource type</label>
-          <select value={form.type} onChange={update('type')}
-            className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm focus-ring bg-paper/40">
-            <option value="notes">Notes</option>
-            <option value="slides">Slides</option>
-            <option value="question">Question Bank</option>
-            <option value="lab">Lab Sheet</option>
-          </select>
-        </div>
+          <div>
+            <label className="block font-body text-[10px] uppercase tracking-widest text-textMuted mb-1.5">
+              File (PDF, DOC, PPT, XLSX, image — max 50MB)
+            </label>
+            <input type="file" required onChange={(e) => setFile(e.target.files[0])}
+              className="w-full text-sm text-textSec border border-dashed border-white/20 rounded-sm px-3 py-3 bg-[rgba(8,38,61,0.9)] focus-ring file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:bg-green file:text-white file:text-xs file:font-semibold" />
+          </div>
 
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">Tags (comma separated)</label>
-          <input value={form.tags} onChange={update('tags')}
-            className="w-full border border-ink/20 rounded-sm px-3 py-2 text-sm focus-ring bg-paper/40" placeholder="midterm, chapter4, important" />
-        </div>
-
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-widest text-inkSoft mb-1.5">File (PDF, DOC, PPT, image — max 15MB)</label>
-          <input type="file" required onChange={(e) => setFile(e.target.files[0])}
-            className="w-full text-sm border border-dashed border-ink/25 rounded-sm px-3 py-3 bg-paper/40 focus-ring" />
-        </div>
-
-        <button type="submit" disabled={loading}
-          className="w-full bg-ink text-paper font-medium py-2.5 rounded-sm hover:bg-maroon transition-colors focus-ring disabled:opacity-50">
-          {loading ? 'Uploading…' : 'Upload resource'}
-        </button>
-      </form>
+          <button type="submit" disabled={loading} className="btn-primary w-full py-3 text-sm">
+            {loading ? 'Uploading…' : 'Upload resource'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
