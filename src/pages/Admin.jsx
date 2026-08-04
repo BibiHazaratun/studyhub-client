@@ -31,16 +31,7 @@ export default function Admin() {
     }
   }
 
-  const handleResetPassword = async (id, name) => {
-    if (!window.confirm(`Reset password for ${name}?`)) return
-    try {
-      const { data } = await api.put(`/users/${id}/reset-password`)
-      alert(`New password for ${name}: ${data.newPassword}\n\nShare this with the student securely.`)
-    } catch (err) {
-      alert(err.response?.data?.message || 'Action failed')
-    }
-  }
-
+ 
   const handleRoleChange = async (id, newRole, name) => {
     if (!window.confirm(`Change ${name}'s role to ${newRole}?`)) return
     try {
@@ -112,14 +103,7 @@ export default function Admin() {
                               {u.banned ? 'Unban' : 'Ban'}
                             </button>
                           )}
-                          {(u.role === 'student' || isMainAdmin) && (
-                            <button
-                              onClick={() => handleResetPassword(u._id, u.name)}
-                              className="btn-ghost px-3 py-1.5 text-xs"
-                            >
-                              Reset PW
-                            </button>
-                          )}
+                          
                           {isMainAdmin && u._id !== currentUser._id && (
                             <select
                               value={u.role}
