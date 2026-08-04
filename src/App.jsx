@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Browse from './pages/Browse'
 import Upload from './pages/Upload'
 import Admin from './pages/Admin'
+import ResetPassword from './pages/ResetPassword'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/"
